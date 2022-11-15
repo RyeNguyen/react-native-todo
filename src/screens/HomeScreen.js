@@ -8,27 +8,21 @@ import TextStyles from '../styles/Text.style';
 import LayoutStyles from '../styles/Layout.style';
 
 import Input from '../components/Input.component';
-import TaskList from '../components/TaskList.component';
 import TaskCard from '../components/TaskCard.component';
+import HomeHeader from "../components/HomeHeader.component";
 
 import TaskListData from '../data/TaskList.data';
+import UserData from "../data/User.data";
+
+import IconSearch from "../icons/IconSearch.icon";
 
 const HomeScreen = () => {
   return (
     <ScrollView style={LayoutStyles.layoutScreen}>
       <View style={styles.header}>
-        <View style={[LayoutStyles.layoutStretch, styles.headerTop]}>
-          <View>
-            <Text style={[TextStyles.h2, TextStyles.textWhite]}>Welcome Minh</Text>
-            <Text style={[TextStyles.textMain, TextStyles.textWhite, styles.welcome]}>
-              Have a great day!
-            </Text>
-          </View>
+        <HomeHeader data={UserData}/>
 
-          <Image style={styles.avatar} />
-        </View>
-
-        <Input />
+        <Input preIcon={<IconSearch/>} placeholder='Search Task'/>
       </View>
 
       <View style={styles.taskContainer}>
@@ -45,20 +39,8 @@ const HomeScreen = () => {
 export default HomeScreen;
 
 const styles = StyleSheet.create({
-  welcome: {
-    marginTop: Sizes.smallestH,
-  },
   header: {
-    marginHorizontal: Sizes.mediumLarge
-  },
-  headerTop: {
-    marginVertical: Sizes.mediumLargeH
-  },
-  avatar: {
-    width: Sizes.massive,
-    height: Sizes.massive,
-    backgroundColor: 'tomato',
-    borderRadius: 1000,
+    marginHorizontal: Sizes.mediumLarge,
   },
   taskContainer: {
     height: '100%',
@@ -66,6 +48,6 @@ const styles = StyleSheet.create({
     marginTop: Sizes.massiveH,
     borderTopLeftRadius: Sizes.massive * 2,
     paddingVertical: Sizes.massiveH,
-    paddingHorizontal: Sizes.mediumLarge
+    paddingHorizontal: Sizes.mediumLarge,
   },
 });

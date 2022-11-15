@@ -14,6 +14,8 @@ import PaymentSuccessScreen from './src/screens/PaymentSuccessScreen';
 
 import {scaleSizeUI} from './src/utils/scaleSizeUI.util';
 
+import IconAdd from "./src/icons/IconAdd.icon";
+
 const Stack = createNativeStackNavigator();
 
 const RenderHomeScreen = () => <HomeScreen />;
@@ -60,7 +62,7 @@ const MainTabs = () => {
         <TouchableOpacity
           style={styles.tabMiddleButton}
           onPress={() => navigate('Payment')}>
-          {/* <IconScan /> */}
+           <IconAdd />
         </TouchableOpacity>
       )}
       tabBar={renderTabBar}>

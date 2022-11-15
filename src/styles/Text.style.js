@@ -36,8 +36,9 @@ module.exports = StyleSheet.create({
   },
   textSmall: {
     fontFamily: 'Poppins',
-    fontSize: Sizes.mediumSmall,
+    fontSize: Sizes.medium,
     color: Colors.primary,
+    fontWeight: '700'
   },
   textBold: {
     fontWeight: '900',
