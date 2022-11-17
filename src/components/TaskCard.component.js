@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: Sizes.mediumLarge,
     paddingVertical: Sizes.mediumLarge,
     backgroundColor: Colors.secondary,
-    marginBottom: Sizes.mediumLargeH,
+    marginBottom: Sizes.hugeH,
   },
   title: {
     marginBottom: Sizes.mediumLargeH,

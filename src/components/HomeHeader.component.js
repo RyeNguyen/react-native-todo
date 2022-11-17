@@ -1,25 +1,18 @@
-import React from "react";
-import { Image, StyleSheet, Text, View } from "react-native";
+import React from 'react';
+import { Image, StyleSheet, Text, View } from 'react-native';
 
-import LayoutStyles from "../styles/Layout.style";
-import TextStyles from "../styles/Text.style";
+import LayoutStyles from '../styles/Layout.style';
+import TextStyles from '../styles/Text.style';
 
 import Colors from '../constants/Colors.constant';
-import Sizes from "../constants/Sizes.constant";
+import Sizes from '../constants/Sizes.constant';
 
 const HomeHeader = ({ data }) => {
   return (
     <View style={[LayoutStyles.layoutStretch, styles.headerTop]}>
       <View>
-        <Text style={[TextStyles.h2, TextStyles.textWhite]}>
-          Welcome {data.firstName}
-        </Text>
-        <Text
-          style={[
-            TextStyles.textMain,
-            TextStyles.textWhite,
-            styles.welcome,
-          ]}>
+        <Text style={TextStyles.h2}>Welcome {data.firstName}</Text>
+        <Text style={[TextStyles.textMain, styles.welcome]}>
           Have a great day!
         </Text>
       </View>
@@ -42,8 +35,7 @@ const styles = StyleSheet.create({
     height: Sizes.massive,
     borderRadius: 100,
     borderWidth: 2,
-    borderColor: Colors.secondary,
-    backgroundColor: 'teal'
+    borderColor: Colors.primary,
   },
 });
 

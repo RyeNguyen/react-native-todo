@@ -15,7 +15,7 @@ module.exports = StyleSheet.create({
     justifyContent: 'space-between',
   },
   layoutScreen: {
-    backgroundColor: Colors.primary,
+    backgroundColor: Colors.white,
     overflow: 'visible',
   },
   layoutShadow: {
@@ -26,6 +26,6 @@ module.exports = StyleSheet.create({
       height: 0,
       width: 0,
     },
-    elevation: Sizes.large,
+    elevation: Sizes.massive,
   },
 });

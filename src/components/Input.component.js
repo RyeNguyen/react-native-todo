@@ -8,10 +8,20 @@ import TextStyles from '../styles/Text.style';
 
 import LayoutStyles from '../styles/Layout.style';
 
-const Input = ({ preIcon, label, placeholder, isMultilines = false, numberOfLines = 1 }) => {
+const Input = ({
+  preIcon,
+  label,
+  placeholder,
+  isMultilines = false,
+  numberOfLines = 1,
+  value = '',
+  handleChange,
+}) => {
   return (
     <View style={styles.container}>
-      {label && <Text style={[TextStyles.textMain, styles.label]}>{label}</Text>}
+      {label && (
+        <Text style={[TextStyles.textMain, styles.label]}>{label}</Text>
+      )}
 
       <View style={styles.inputContainer}>
         {preIcon}
@@ -23,11 +33,13 @@ const Input = ({ preIcon, label, placeholder, isMultilines = false, numberOfLine
           numberOfLines={numberOfLines}
           placeholder={placeholder}
           multiline={isMultilines}
-          placeholderTextColor='rgba(255, 255, 255, 0.75)'
+          placeholderTextColor="rgba(255, 255, 255, 0.75)"
+          value={value}
+          onChangeText={handleChange}
           style={{
             ...styles.input,
             textAlignVertical: isMultilines ? 'top' : 'auto',
-            marginLeft: preIcon ? Sizes.smallest : 0
+            marginLeft: preIcon ? Sizes.smallest : 0,
           }}
         />
       </View>
@@ -39,7 +51,7 @@ export default Input;
 
 const styles = StyleSheet.create({
   container: {
-    marginBottom: Sizes.massiveH
+    marginBottom: Sizes.massiveH,
   },
   inputContainer: {
     paddingVertical: Sizes.smallerH,
@@ -52,9 +64,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   label: {
-    marginBottom: Sizes.smaller
+    marginBottom: Sizes.smaller,
   },
   input: {
-    fontWeight: '700'
-  }
+    fontWeight: '700',
+  },
 });
