@@ -16,7 +16,7 @@ module.exports = StyleSheet.create({
   },
   layoutScreen: {
     backgroundColor: Colors.primary,
-    overflow: 'visible'
+    overflow: 'visible',
   },
   layoutShadow: {
     shadowColor: '#000000',

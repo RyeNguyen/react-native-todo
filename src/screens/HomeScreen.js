@@ -9,27 +9,29 @@ import LayoutStyles from '../styles/Layout.style';
 
 import Input from '../components/Input.component';
 import TaskCard from '../components/TaskCard.component';
-import HomeHeader from "../components/HomeHeader.component";
+import HomeHeader from '../components/HomeHeader.component';
 
 import TaskListData from '../data/TaskList.data';
-import UserData from "../data/User.data";
+import UserData from '../data/User.data';
 
-import IconSearch from "../icons/IconSearch.icon";
+import IconSearch from '../icons/IconSearch.icon';
 
 const HomeScreen = () => {
   return (
     <ScrollView style={LayoutStyles.layoutScreen}>
       <View style={styles.header}>
-        <HomeHeader data={UserData}/>
+        <HomeHeader data={UserData} />
 
-        <Input preIcon={<IconSearch/>} placeholder='Search Task'/>
+        <Input preIcon={<IconSearch />} placeholder="Search Task" />
       </View>
 
+      <View />
+
       <View style={styles.taskContainer}>
-        <Text style={TextStyles.textMain}>My Tasks</Text>
+        <Text style={TextStyles.textMain}>Recent Tasks</Text>
         {/* <TaskList data={TaskListData} /> */}
         {TaskListData.map((task, index) => {
-          return <TaskCard key={index} name={task.name} />;
+          return <TaskCard key={index} task={task} />;
         })}
       </View>
     </ScrollView>
