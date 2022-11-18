@@ -11,8 +11,11 @@ const HomeHeader = ({ data }) => {
   return (
     <View style={[LayoutStyles.layoutStretch, styles.headerTop]}>
       <View>
-        <Text style={TextStyles.h2}>Welcome {data.firstName}</Text>
-        <Text style={[TextStyles.textMain, styles.welcome]}>
+        <Text style={[TextStyles.h2, TextStyles.textWhite]}>
+          Welcome, {data.firstName}
+        </Text>
+        <Text
+          style={[TextStyles.textMain, TextStyles.textWhite, styles.welcome]}>
           Have a great day!
         </Text>
       </View>
@@ -28,14 +31,14 @@ const styles = StyleSheet.create({
   },
   headerTop: {
     marginTop: Sizes.hugerH,
-    marginBottom: Sizes.mediumLargeH,
+    marginBottom: Sizes.hugeH,
   },
   avatar: {
     width: Sizes.massive,
     height: Sizes.massive,
     borderRadius: 100,
     borderWidth: 2,
-    borderColor: Colors.primary,
+    borderColor: Colors.secondary,
   },
 });
 

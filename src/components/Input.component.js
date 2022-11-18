@@ -23,7 +23,7 @@ const Input = ({
         <Text style={[TextStyles.textMain, styles.label]}>{label}</Text>
       )}
 
-      <View style={styles.inputContainer}>
+      <View style={[styles.inputContainer, LayoutStyles.layoutShadow]}>
         {preIcon}
 
         <TextInput
@@ -51,12 +51,12 @@ export default Input;
 
 const styles = StyleSheet.create({
   container: {
-    marginBottom: Sizes.massiveH,
+    marginBottom: Sizes.hugerH,
   },
   inputContainer: {
     paddingVertical: Sizes.smallerH,
     paddingHorizontal: Sizes.mediumLarge,
-    backgroundColor: Colors.primaryLighter,
+    backgroundColor: Colors.primary,
     borderTopLeftRadius: Sizes.mediumLarge,
     borderBottomRightRadius: Sizes.mediumLarge,
     marginTop: Sizes.smallerH,
@@ -67,6 +67,7 @@ const styles = StyleSheet.create({
     marginBottom: Sizes.smaller,
   },
   input: {
+    flex: 1,
     fontWeight: '700',
   },
 });

@@ -5,15 +5,18 @@ import {
   Image,
   ScrollView,
   FlatList,
+  TouchableOpacity,
+  ImageBackground,
 } from 'react-native';
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import Sizes from '../constants/Sizes.constant';
 import Colors from '../constants/Colors.constant';
 import TextStyles from '../styles/Text.style';
 import LayoutStyles from '../styles/Layout.style';
 
-import { useAppSelector } from '../app/hooks';
+import { useAppSelector, useAppDispatch } from '../app/hooks';
+import { getTasks } from '../features/todo/todoSlice';
 
 import Input from '../components/Input.component';
 import TaskCard from '../components/TaskCard.component';
@@ -24,21 +27,33 @@ import UserData from '../data/User.data';
 import Priorities from '../data/Priorities.data';
 
 import IconSearch from '../icons/IconSearch.icon';
+import IconArrowRight from '../icons/IconArrowRight.icon';
 
-const HomeScreen = () => {
-  const tasks = useAppSelector(state => state.todo.tasks);
+const HomeScreen = ({ navigation }) => {
+  const tasks = useAppSelector(state => state.todo.tasks.slice(0, 5));
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(getTasks());
+  }, []);
 
   return (
     <ScrollView style={LayoutStyles.layoutScreen}>
-      <View style={styles.header}>
-        <HomeHeader data={UserData} />
+      <ImageBackground
+        source={require('../../assets/images/img-background-plant.jpg')}
+        style={[LayoutStyles.layoutShadow, styles.header]}
+        imageStyle={{ borderRadius: Sizes.mediumLarge }}
+        blurRadius={10}>
+        <View style={styles.headerInner}>
+          <HomeHeader data={UserData} />
 
-        <Input preIcon={<IconSearch />} placeholder="Search Task" />
-      </View>
+          <Input preIcon={<IconSearch />} placeholder="Search Task" />
+        </View>
+      </ImageBackground>
 
       <View>
         <Text style={[TextStyles.h3, styles.categoryTitle]}>
-          Let's finish your priorities!
+          Your priorities!
         </Text>
         <FlatList
           horizontal
@@ -50,7 +65,19 @@ const HomeScreen = () => {
       </View>
 
       <View style={[styles.taskContainer, LayoutStyles.layoutShadow]}>
-        <Text style={[TextStyles.h4, styles.recentTitle]}>Recent Tasks</Text>
+        <View style={styles.recentHeader}>
+          <Text style={[TextStyles.h3, styles.recentTitle]}>Recent Tasks</Text>
+
+          <TouchableOpacity
+            style={styles.recentLink}
+            onPress={() => navigation.navigate('TaskList')}>
+            <Text style={[TextStyles.textSmall, styles.recentLinkText]}>
+              See All
+            </Text>
+            <IconArrowRight />
+          </TouchableOpacity>
+        </View>
+
         {tasks.map((task, index) => {
           return <TaskCard key={index} task={task} />;
         })}
@@ -64,21 +91,40 @@ export default HomeScreen;
 const styles = StyleSheet.create({
   header: {
     marginHorizontal: Sizes.mediumLarge,
+    marginTop: Sizes.mediumLargeH,
+    marginBottom: Sizes.massiveH,
+  },
+  headerInner: {
+    paddingHorizontal: Sizes.medium,
+    backgroundColor: Colors.primaryBlur,
+    borderRadius: Sizes.mediumLarge,
   },
   taskContainer: {
-    height: '100%',
     backgroundColor: Colors.secondaryLighter,
     marginTop: Sizes.massiveH,
     borderTopLeftRadius: Sizes.massive * 2,
     paddingTop: Sizes.hugerH + Sizes.mediumH,
-    paddingHorizontal: Sizes.mediumLarge,
+    paddingHorizontal: Sizes.huger,
   },
   categoryTitle: {
     marginLeft: Sizes.mediumLarge,
     marginBottom: Sizes.mediumLargeH,
   },
+  recentHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: Sizes.hugerH,
+  },
+  recentLink: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  recentLinkText: {
+    marginRight: Sizes.smallest,
+  },
   recentTitle: {
     marginLeft: Sizes.medium,
-    marginBottom: Sizes.largeH,
   },
 });

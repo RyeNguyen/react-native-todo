@@ -19,13 +19,13 @@ module.exports = StyleSheet.create({
     overflow: 'visible',
   },
   layoutShadow: {
-    shadowColor: '#000000',
+    shadowColor: Colors.primary,
     shadowOpacity: 0,
     shadowRadius: 50,
     shadowOffset: {
       height: 0,
       width: 0,
     },
-    elevation: Sizes.massive,
+    elevation: Sizes.mediumSmall,
   },
 });

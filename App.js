@@ -10,13 +10,15 @@ import Colors from './src/constants/Colors.constant';
 import Sizes from './src/constants/Sizes.constant';
 
 import HomeScreen from './src/screens/HomeScreen';
-import ProfileScreen from './src/screens/ProfileScreen';
+import TaskDetailScreen from './src/screens/TaskDetailScreen';
 import CreateTaskScreen from './src/screens/CreateTaskScreen';
-import PaymentSuccessScreen from './src/screens/PaymentSuccessScreen';
+import TaskListScreen from './src/screens/TaskListScreen';
+import TabBar from './src/components/TabBar.component';
 
 import { scaleSizeUI } from './src/utils/scaleSizeUI.util';
 
 import IconAdd from './src/icons/IconAdd.icon';
+import IconHome from './src/icons/IconHome.icon';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -27,9 +29,30 @@ const MainTabs = () => {
       screenOptions={{
         headerShown: false,
       }}>
-      <Tab.Screen name="Home" component={HomeScreen} />
-      <Tab.Screen name="Profile" component={ProfileScreen} />
-      <Tab.Screen name="Payment" component={CreateTaskScreen} />
+      <Tab.Screen
+        name="Home"
+        component={HomeScreen}
+        options={{
+          tabBarShowLabel: false,
+          tabBarIcon: () => <IconHome />,
+        }}
+      />
+      <Tab.Screen
+        name="CreateTask"
+        component={CreateTaskScreen}
+        options={{
+          tabBarShowLabel: false,
+          tabBarIcon: () => <IconAdd />,
+        }}
+      />
+      <Tab.Screen
+        name="TaskList"
+        component={TaskListScreen}
+        options={{
+          tabBarShowLabel: false,
+          tabBarIcon: () => <IconAdd />,
+        }}
+      />
     </Tab.Navigator>
   );
 };
@@ -43,7 +66,7 @@ function App() {
             headerShown: false,
           }}>
           <Stack.Screen name="MainTab" component={MainTabs} />
-          <Stack.Screen name="Payment" component={CreateTaskScreen} />
+          <Stack.Screen name="TaskDetail" component={TaskDetailScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>

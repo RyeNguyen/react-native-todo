@@ -5,7 +5,8 @@ import {
   TouchableOpacity,
   ScrollView,
 } from 'react-native';
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
+import { useFocusEffect } from '@react-navigation/native';
 
 import { useAppDispatch } from '../app/hooks';
 import { createTask } from '../features/todo/todoSlice';
@@ -22,8 +23,48 @@ import Priorities from '../data/Priorities.data';
 const CreateTaskScreen = ({ navigation }) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-  const [priority, setPriority] = useState('Low');
+  const [priority, setPriority] = useState('!');
+  const [errMsg, setErrMsg] = useState('');
   const dispatch = useAppDispatch();
+
+  useFocusEffect(
+    useCallback(() => {
+      return () => {
+        resetFields();
+        setErrMsg('');
+      };
+    }, []),
+  );
+
+  const validateInput = () => {
+    if (!title) {
+      setErrMsg('Please fill out the title of your task!');
+      return false;
+    }
+    setErrMsg('');
+    return true;
+  };
+
+  const resetFields = () => {
+    setTitle('');
+    setDescription('');
+    setPriority('!');
+  };
+
+  const handleCreateTask = () => {
+    if (validateInput()) {
+      dispatch(
+        createTask({
+          id: Math.random() * 1000,
+          name: title,
+          description: description,
+          priority: priority,
+        }),
+      );
+      resetFields();
+      navigation.navigate('Home');
+    }
+  };
 
   return (
     <ScrollView style={styles.container}>
@@ -49,10 +90,12 @@ const CreateTaskScreen = ({ navigation }) => {
         {Priorities.map(item => (
           <TouchableOpacity
             key={item.id}
+            onPress={() => setPriority(item.name)}
             style={[
               LayoutStyles.layoutCenter,
+              LayoutStyles.layoutShadow,
               styles.priorityContainer,
-              { backgroundColor: item.color2 },
+              priority === item.name ? styles.priorityActive : '',
             ]}>
             <Text style={[TextStyles.textSmall, { color: item.color1 }]}>
               {item.name}
@@ -62,19 +105,14 @@ const CreateTaskScreen = ({ navigation }) => {
       </View>
 
       <View style={styles.footer}>
-        <TouchableOpacity style={[LayoutStyles.layoutCenter, styles.button]}>
-          <Text
-            style={[TextStyles.textMain, TextStyles.textWhite]}
-            onPress={() =>
-              dispatch(
-                createTask({
-                  id: Math.random() * 1000,
-                  name: title,
-                  description: description,
-                  priority: priority,
-                }),
-              )
-            }>
+        {errMsg ? (
+          <Text style={[TextStyles.textMain, styles.error]}>{errMsg}</Text>
+        ) : null}
+
+        <TouchableOpacity
+          style={[LayoutStyles.layoutCenter, styles.button]}
+          onPress={handleCreateTask}>
+          <Text style={[TextStyles.textMain, TextStyles.textWhite]}>
             Create Task
           </Text>
         </TouchableOpacity>
@@ -91,6 +129,7 @@ const styles = StyleSheet.create({
     paddingVertical: Sizes.mediumLargeH,
     paddingHorizontal: Sizes.mediumLarge,
     backgroundColor: Colors.secondaryLighter,
+    overflow: 'visible',
   },
   heading: {
     textAlign: 'center',
@@ -103,14 +142,24 @@ const styles = StyleSheet.create({
     width: '30%',
     paddingVertical: Sizes.smaller,
     borderTopLeftRadius: Sizes.mediumLarge,
+    backgroundColor: Colors.secondary,
     borderBottomRightRadius: Sizes.mediumLarge,
+  },
+  priorityActive: {
+    borderWidth: 2,
+    borderColor: Colors.primary,
   },
   footer: {
     marginTop: Sizes.massiveH * 2,
   },
   button: {
-    backgroundColor: Colors.primary,
+    backgroundColor: Colors.primaryLighter,
     paddingVertical: Sizes.mediumLarge,
     borderRadius: Sizes.mediumLarge,
+  },
+  error: {
+    color: Colors.red,
+    textAlign: 'center',
+    marginBottom: Sizes.mediumLarge,
   },
 });
