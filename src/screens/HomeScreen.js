@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   ImageBackground,
 } from 'react-native';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import Sizes from '../constants/Sizes.constant';
 import Colors from '../constants/Colors.constant';
@@ -16,7 +16,7 @@ import TextStyles from '../styles/Text.style';
 import LayoutStyles from '../styles/Layout.style';
 
 import { useAppSelector, useAppDispatch } from '../app/hooks';
-import { getTasks } from '../features/todo/todoSlice';
+import { getTasks, filterTask } from '../features/todo/todoSlice';
 
 import Input from '../components/Input.component';
 import TaskCard from '../components/TaskCard.component';
@@ -30,12 +30,26 @@ import IconSearch from '../icons/IconSearch.icon';
 import IconArrowRight from '../icons/IconArrowRight.icon';
 
 const HomeScreen = ({ navigation }) => {
-  const tasks = useAppSelector(state => state.todo.tasks.slice(0, 5));
+  const tasks = useAppSelector(state => state.todo.tasks);
   const dispatch = useAppDispatch();
+
+  const [renderedTasks, setRenderedTasks] = useState(tasks.slice(0, 5));
+  const [taskHigh, setTaskHigh] = useState(0);
+  const [taskMedium, setTaskMedium] = useState(0);
+  const [taskLow, setTaskLow] = useState(0);
 
   useEffect(() => {
     dispatch(getTasks());
-  }, []);
+  }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(filterTask({ searchTerm: '', priority: '!!!' }));
+  }, [dispatch]);
+
+  const searchTask = newText => {
+    dispatch(filterTask(newText));
+    navigation.navigate('TaskList');
+  };
 
   return (
     <ScrollView style={LayoutStyles.layoutScreen}>
@@ -47,7 +61,11 @@ const HomeScreen = ({ navigation }) => {
         <View style={styles.headerInner}>
           <HomeHeader data={UserData} />
 
-          <Input preIcon={<IconSearch />} placeholder="Search Task" />
+          <Input
+            preIcon={<IconSearch />}
+            placeholder="Search Task"
+            handleEnd={searchTask}
+          />
         </View>
       </ImageBackground>
 
@@ -78,7 +96,7 @@ const HomeScreen = ({ navigation }) => {
           </TouchableOpacity>
         </View>
 
-        {tasks.map((task, index) => {
+        {renderedTasks.map((task, index) => {
           return <TaskCard key={index} task={task} />;
         })}
       </View>

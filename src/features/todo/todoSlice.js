@@ -36,6 +36,7 @@ const initialState = {
   tasks: TaskListData,
   currentTask: {},
   categories: Priorities,
+  completedTasks: [],
 };
 
 const todoSlice = createSlice({
@@ -45,7 +46,6 @@ const todoSlice = createSlice({
     createTask(state, action) {
       state.tasks.unshift(action.payload);
       state.tasks = getFullTasks(state.tasks);
-      console.log('Full tasks', state.tasks);
     },
     getTaskById(state, action) {
       state.tasks.forEach(task => {
@@ -56,14 +56,54 @@ const todoSlice = createSlice({
     },
     getTasks(state) {
       state.tasks = getFullTasks(state.tasks);
-      console.log('Full tasks', state.tasks);
     },
     deleteTask(state, action) {
       state.tasks = state.tasks.filter(task => task.id !== action.payload);
     },
+    updateTask(state, action) {
+      state.tasks = state.tasks.map(task => {
+        if (task.id === action.payload.id) {
+          task = action.payload;
+          return task;
+        }
+        return task;
+      });
+      state.tasks = getFullTasks(state.tasks);
+    },
+    completeTask(state, action) {
+      state.tasks = state.tasks.filter(task => {
+        if (task.id === action.payload) {
+          state.completedTasks.unshift(task);
+        }
+        return task.id !== action.payload;
+      });
+      console.log('completed: ', state.completedTasks);
+    },
+    filterTask(state, action) {
+      if (action.payload.searchTerm) {
+        state.tasks = state.tasks.filter(
+          task =>
+            task.name.includes(action.payload.searchTerm) ||
+            task.description.includes(action.payload.searchTerm),
+        );
+      }
+
+      if (action.payload.priority) {
+        state.tasks = state.tasks.filter(
+          task => task.priority === action.payload.priority,
+        );
+      }
+    },
   },
 });
 
-export const { createTask, getTaskById, getTasks, deleteTask } =
-  todoSlice.actions;
+export const {
+  createTask,
+  getTaskById,
+  getTasks,
+  deleteTask,
+  updateTask,
+  completeTask,
+  filterTask,
+} = todoSlice.actions;
 export default todoSlice.reducer;

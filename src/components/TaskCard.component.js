@@ -8,11 +8,10 @@ import TextStyles from '../styles/Text.style';
 import LayoutStyles from '../styles/Layout.style';
 
 import { useAppDispatch } from '../app/hooks';
-import { deleteTask } from '../features/todo/todoSlice';
+import { deleteTask, completeTask } from '../features/todo/todoSlice';
 
 import IconDelete from '../icons/IconDelete.icon';
 import IconTick from '../icons/IconTick.icon';
-import { scaleSizeUI } from '../utils/scaleSizeUI.util';
 
 const TaskCard = ({ task }) => {
   const navigation = useNavigation();
@@ -39,6 +38,7 @@ const TaskCard = ({ task }) => {
       </View>
 
       <TouchableOpacity
+        onPress={() => dispatch(completeTask(id))}
         style={[
           LayoutStyles.layoutShadow,
           styles.cardButton,

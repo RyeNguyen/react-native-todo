@@ -55,7 +55,7 @@ const CreateTaskScreen = ({ navigation }) => {
     if (validateInput()) {
       dispatch(
         createTask({
-          id: Math.random() * 1000,
+          id: Math.floor(Math.random() * 100000),
           name: title,
           description: description,
           priority: priority,
