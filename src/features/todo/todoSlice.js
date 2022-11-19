@@ -79,21 +79,6 @@ const todoSlice = createSlice({
       });
       console.log('completed: ', state.completedTasks);
     },
-    filterTask(state, action) {
-      if (action.payload.searchTerm) {
-        state.tasks = state.tasks.filter(
-          task =>
-            task.name.includes(action.payload.searchTerm) ||
-            task.description.includes(action.payload.searchTerm),
-        );
-      }
-
-      if (action.payload.priority) {
-        state.tasks = state.tasks.filter(
-          task => task.priority === action.payload.priority,
-        );
-      }
-    },
   },
 });
 

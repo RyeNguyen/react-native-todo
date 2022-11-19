@@ -15,7 +15,7 @@ const TaskListScreen = () => {
   const completed = useAppSelector(state => state.todo.completedTasks);
 
   const renderTask = item => {
-    return <TaskCard task={item} />;
+    return <TaskCard key={item.id} task={item} />;
   };
 
   return (

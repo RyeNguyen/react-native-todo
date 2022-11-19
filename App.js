@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -13,12 +13,10 @@ import HomeScreen from './src/screens/HomeScreen';
 import TaskDetailScreen from './src/screens/TaskDetailScreen';
 import CreateTaskScreen from './src/screens/CreateTaskScreen';
 import TaskListScreen from './src/screens/TaskListScreen';
-import TabBar from './src/components/TabBar.component';
-
-import { scaleSizeUI } from './src/utils/scaleSizeUI.util';
 
 import IconAdd from './src/icons/IconAdd.icon';
 import IconHome from './src/icons/IconHome.icon';
+import IconList from './src/icons/IconList.icon';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -50,7 +48,7 @@ const MainTabs = () => {
         component={TaskListScreen}
         options={{
           tabBarShowLabel: false,
-          tabBarIcon: () => <IconAdd />,
+          tabBarIcon: () => <IconList />,
         }}
       />
     </Tab.Navigator>

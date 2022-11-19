@@ -16,7 +16,6 @@ const Input = ({
   numberOfLines = 1,
   value = '',
   handleChange,
-  handleEnd,
 }) => {
   return (
     <View style={styles.container}>
@@ -37,7 +36,6 @@ const Input = ({
           placeholderTextColor="rgba(255, 255, 255, 0.75)"
           defaultValue={value}
           onChangeText={handleChange}
-          onEndEditing={handleEnd ? newText => handleEnd(newText) : null}
           style={{
             ...styles.input,
             textAlignVertical: isMultilines ? 'top' : 'auto',

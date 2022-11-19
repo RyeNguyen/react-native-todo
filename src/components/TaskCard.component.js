@@ -7,13 +7,14 @@ import Sizes from '../constants/Sizes.constant';
 import TextStyles from '../styles/Text.style';
 import LayoutStyles from '../styles/Layout.style';
 
-import { useAppDispatch } from '../app/hooks';
+import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { deleteTask, completeTask } from '../features/todo/todoSlice';
 
 import IconDelete from '../icons/IconDelete.icon';
 import IconTick from '../icons/IconTick.icon';
 
 const TaskCard = ({ task }) => {
+  const completedTasks = useAppSelector(state => state.todo.completedTasks);
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
 
@@ -22,7 +23,12 @@ const TaskCard = ({ task }) => {
   return (
     <TouchableOpacity
       style={[LayoutStyles.layoutShadow, styles.container]}
-      onPress={() => navigation.navigate('TaskDetail', { taskId: id })}>
+      onPress={() => {
+        if (completedTasks.includes(task)) {
+          return;
+        }
+        navigation.navigate('TaskDetail', { taskId: id });
+      }}>
       <Text numberOfLines={2} style={[TextStyles.textMain, styles.title]}>
         {name}
       </Text>
@@ -37,23 +43,25 @@ const TaskCard = ({ task }) => {
         </Text>
       </View>
 
-      <TouchableOpacity
-        onPress={() => dispatch(completeTask(id))}
-        style={[
-          LayoutStyles.layoutShadow,
-          styles.cardButton,
-          styles.cardButton1,
-        ]}>
-        <Text
+      {completedTasks.includes(task) ? null : (
+        <TouchableOpacity
+          onPress={() => dispatch(completeTask(id))}
           style={[
-            TextStyles.textSmall,
-            TextStyles.textWhite,
-            styles.cardButtonText,
+            LayoutStyles.layoutShadow,
+            styles.cardButton,
+            styles.cardButton1,
           ]}>
-          Done
-        </Text>
-        <IconTick />
-      </TouchableOpacity>
+          <Text
+            style={[
+              TextStyles.textSmall,
+              TextStyles.textWhite,
+              styles.cardButtonText,
+            ]}>
+            Done
+          </Text>
+          <IconTick />
+        </TouchableOpacity>
+      )}
 
       <TouchableOpacity
         onPress={() => dispatch(deleteTask(id))}
