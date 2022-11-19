@@ -21,12 +21,26 @@ const TaskListScreen = () => {
   return (
     <ScrollView style={[LayoutStyles.layoutScreen, styles.screen]}>
       <View style={styles.listWrapper}>
-        <Text style={[TextStyles.h2, styles.heading]}>Tasks in Progress</Text>
+        <View style={styles.heading}>
+          <Text style={TextStyles.h2}>Tasks in Progress</Text>
+          <View style={[styles.amount, LayoutStyles.layoutShadow]}>
+            <Text style={[TextStyles.h3, TextStyles.textWhite]}>
+              {remaining.length}
+            </Text>
+          </View>
+        </View>
         {remaining.map(task => renderTask(task))}
       </View>
 
       <View style={styles.listWrapper}>
-        <Text style={[TextStyles.h2, styles.heading]}>Completed Tasks</Text>
+        <View style={styles.heading}>
+          <Text style={TextStyles.h2}>Completed Tasks</Text>
+          <View style={[styles.amount, LayoutStyles.layoutShadow]}>
+            <Text style={[TextStyles.h3, TextStyles.textWhite]}>
+              {completed.length}
+            </Text>
+          </View>
+        </View>
         {completed.map(task => renderTask(task))}
       </View>
     </ScrollView>
@@ -44,6 +58,15 @@ const styles = StyleSheet.create({
   },
   heading: {
     marginBottom: Sizes.massiveH,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  amount: {
+    backgroundColor: Colors.primary,
+    borderRadius: Sizes.mediumLarge,
+    marginLeft: Sizes.mediumLarge,
+    paddingVertical: Sizes.smallerH,
+    paddingHorizontal: Sizes.medium,
   },
   listWrapper: {
     top: -3,

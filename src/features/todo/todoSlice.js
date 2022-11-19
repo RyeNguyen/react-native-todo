@@ -59,6 +59,9 @@ const todoSlice = createSlice({
     },
     deleteTask(state, action) {
       state.tasks = state.tasks.filter(task => task.id !== action.payload);
+      state.completedTasks = state.completedTasks.filter(
+        task => task.id !== action.payload,
+      );
     },
     updateTask(state, action) {
       state.tasks = state.tasks.map(task => {
@@ -77,7 +80,6 @@ const todoSlice = createSlice({
         }
         return task.id !== action.payload;
       });
-      console.log('completed: ', state.completedTasks);
     },
   },
 });

@@ -111,7 +111,6 @@ const TaskDetailScreen = ({ navigation, route }) => {
         />
 
         <View style={styles.labelGroup}>
-          {/*<Text style={TextStyles.textSmall}>Priority</Text>*/}
           {prioritiesList.map(pri => (
             <TouchableOpacity
               key={pri.id}

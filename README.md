@@ -1,6 +1,5 @@
 # react-native-todo
 This is a Todo List app written using React Native for learning purpose. In this particular project I have learned how to write styles for the UI properly and manage states using Redux Toolkit quite comfortably.
-
 ![](assets/videos/demo.mp4)
 
 Starting from the Home Screen (I haven't had enough time for some fancy things like splash screens or animations ^^), we have a welcome section where users are likely to see their name, a greeting and their avatars.

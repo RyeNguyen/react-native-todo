@@ -62,7 +62,7 @@ const CreateTaskScreen = ({ navigation }) => {
         }),
       );
       resetFields();
-      navigation.navigate('Home');
+      navigation.navigate('TaskList');
     }
   };
 
